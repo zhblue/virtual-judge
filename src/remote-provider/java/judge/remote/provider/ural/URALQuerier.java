@@ -64,7 +64,7 @@ public class URALQuerier extends SyncQuerier {
                 "Source", ceUrl, //
                 "JudgeID", info.remoteAccountId //
             );
-            client.post("/auth.aspx", entity, HttpStatusValidator.SC_MOVED_TEMPORARILY);
+            client.post("/auth.aspx", entity, HttpStatusValidator.SC_OK);
             html = client.get(ceUrl).getBody();
             status.compilationErrorInfo = "<pre>" + html + "</pre>";
         }

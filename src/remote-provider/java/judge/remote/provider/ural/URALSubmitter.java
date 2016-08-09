@@ -44,7 +44,7 @@ public class URALSubmitter extends CanonicalSubmitter {
                 "JudgeID", remoteAccount.getAccountId(), //
                 "SpaceID", "1" //
         );
-        client.post("/submit.aspx", entity, HttpStatusValidator.SC_MOVED_TEMPORARILY);
+        client.post("/submit.aspx", entity, HttpStatusValidator.SC_OK);
         return null;
     }
 

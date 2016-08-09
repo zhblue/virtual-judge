@@ -10,7 +10,7 @@ public class UVAInfo {
     public static final RemoteOjInfo INFO = new RemoteOjInfo( //
             RemoteOj.UVA, //
             "UVA", //
-            new HttpHost("uva.onlinejudge.org") //
+            new HttpHost("uva.onlinejudge.org", 443, "https") //
     );
     
     static {

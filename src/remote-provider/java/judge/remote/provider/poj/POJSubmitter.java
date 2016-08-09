@@ -11,6 +11,7 @@ import judge.remote.account.RemoteAccount;
 import judge.remote.submitter.CanonicalSubmitter;
 import judge.remote.submitter.SubmissionInfo;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpEntity;
 import org.springframework.stereotype.Component;
 
@@ -39,7 +40,8 @@ public class POJSubmitter extends CanonicalSubmitter {
         HttpEntity entity = SimpleNameValueEntityFactory.create(
             "language", info.remotelanguage, //
             "problem_id", info.remoteProblemId, //
-            "source", info.sourceCode
+            "source", new String(Base64.encodeBase64(info.sourceCode.getBytes())),
+            "encoded", "1"
         );
         client.post("/submit", entity, HttpStatusValidator.SC_MOVED_TEMPORARILY);
         return null;

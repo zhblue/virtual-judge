@@ -8,13 +8,19 @@ import judge.remote.RemoteOjInfo;
 import judge.remote.account.RemoteAccount;
 import judge.remote.submitter.CanonicalSubmitter;
 import judge.remote.submitter.SubmissionInfo;
-import org.apache.commons.lang3.StringUtils;
+
 import org.apache.commons.lang3.Validate;
 import org.apache.http.HttpEntity;
 import org.springframework.stereotype.Component;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 @Component
 public class ACdreamSubmitter extends CanonicalSubmitter {
@@ -46,7 +52,10 @@ public class ACdreamSubmitter extends CanonicalSubmitter {
         client.post("/submit", entity, new SimpleHttpResponseValidator() {
             @Override
             public void validate(SimpleHttpResponse response) throws Exception {
-                Validate.isTrue(StringUtils.isEmpty(response.getBody()));
+            	Map<String, String> json = new Gson().fromJson(response.getBody(), new TypeToken<HashMap<String, String>>() {
+                }.getType());
+            	 int ret = Integer.parseInt(json.get("ret"));
+                Validate.isTrue(ret == 0);
             }
         });
         return null;

@@ -2,6 +2,7 @@ package judge.remote.provider.acdream;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import judge.httpclient.DedicatedHttpClient;
 import judge.httpclient.SimpleNameValueEntityFactory;
 import judge.remote.RemoteOjInfo;
@@ -16,23 +17,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 public class ACdreamQuerier extends AuthenticatedQuerier {
-
-    private static final Map<String, String> statusMap = new HashMap<String, String>() {{
-        put("0", "Pending...");
-        put("1", "Running...");
-        put("2", "Accepted");
-        put("3", "Presentation Error");
-        put("4", "Time Limit Exceeded");
-        put("5", "Memory Limit Exceeded");
-        put("6", "Wrong Answer");
-        put("7", "Output Limit Exceeded");
-        put("8", "Compilation Error");
-        put("13", "Dangerous Code");
-        put("14", "System Error");
-    }};
 
     @Override
     public RemoteOjInfo getOjInfo() {
@@ -41,26 +30,28 @@ public class ACdreamQuerier extends AuthenticatedQuerier {
 
     @Override
     protected SubmissionRemoteStatus query(SubmissionInfo info, RemoteAccount remoteAccount, DedicatedHttpClient client) throws JSONException {
-        String html = client.post("/status/info", SimpleNameValueEntityFactory.create(
-                "rid", info.remoteRunId
-        )).getBody();
 
-        Map<String, String> json = new Gson().fromJson(html, new TypeToken<HashMap<String, String>>() {
-        }.getType());
-        String result = json.get("result");
-        int time = Integer.parseInt(json.get("time"));
-        int memory = Integer.parseInt(json.get("memory"));
-
+    	String html = client.get("/status?name=" + info.remoteAccountId + "&pid=" + info.remoteProblemId).getBody();
+    	String pattern = "rid=\"" +  info.remoteRunId + "\"[^>]*>([^<]+).*?KB<\\/td>";
+    	Matcher matcher = Pattern.compile(pattern).matcher(html);
+        matcher.find();
+    	
         SubmissionRemoteStatus status = new SubmissionRemoteStatus();
-        status.rawStatus = statusMap.containsKey(result) ? statusMap.get(result) : "Runtime Error";
+        status.rawStatus =  matcher.group(1);
         status.statusType = SubstringNormalizer.DEFAULT.getStatusType(status.rawStatus);
+        
         if (status.statusType == RemoteStatusType.AC) {
-            status.executionMemory = memory;
-            status.executionTime = time;
+        	String pattern2 = "<td>(\\d+)\\s*MS<\\/td><td>(\\d+)\\s*KB<\\/td>";
+        	Matcher matcher2  = Pattern.compile(pattern2).matcher(matcher.group(0));
+        	matcher2.find();
+            status.executionMemory = Integer.parseInt(matcher2.group(2));
+            status.executionTime = Integer.parseInt(matcher2.group(1));
         } else if (status.statusType == RemoteStatusType.CE) {
-            status.compilationErrorInfo = "<pre>" + client.post("/status/CE", SimpleNameValueEntityFactory.create(
+        	Map<String, String> json = new Gson().fromJson(client.post("/status/CE", SimpleNameValueEntityFactory.create(
                     "rid", info.remoteRunId
-            )).getBody() + "</pre>";
+            )).getBody() , new TypeToken<HashMap<String, String>>() {
+            }.getType());
+            status.compilationErrorInfo = "<pre>" +  json.get("msg").replace("\n", "<br>") +  "</pre>";
         }
         return status;
     }

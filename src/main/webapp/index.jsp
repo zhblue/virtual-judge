@@ -55,26 +55,14 @@
             </p>
             
             <div id="ojs">
-                <span><a href="http://poj.org/" target="_blank"><img src="${contextPath}/images/remote_oj/poj.ico" />POJ</a></span>
-                <span><a href="http://acm.zju.edu.cn/onlinejudge/" target="_blank"><img src="${contextPath}/images/remote_oj/ZOJ_favicon.ico" />ZOJ</a></span>
-                <span><a href="http://livearchive.onlinejudge.org/index.php" target="_blank"><img src="${contextPath}/images/remote_oj/UVA_favicon.ico" />UVALive</a></span>
-                <span><a href="http://acm.sgu.ru/" target="_blank"><img src="${contextPath}/images/remote_oj/SGU_favicon.ico" />SGU</a></span>
-                <span><a href="http://acm.timus.ru/" target="_blank"><img src="${contextPath}/images/remote_oj/URAL_favicon.ico" />URAL</a></span>
-                <span><a href="http://acm.hust.edu.cn/" target="_blank"><img src="${contextPath}/images/remote_oj/HUST_icon.jpg" />HUST</a></span>
-                <span><a href="http://www.spoj.com/" target="_blank"><img src="${contextPath}/images/remote_oj/SPOJ_favicon.png" />SPOJ</a></span>
-                <span><a href="http://acm.hdu.edu.cn" target="_blank"><img src="${contextPath}/images/remote_oj/HDU_icon.png" />HDU</a></span>
-                <span><a href="http://www.lydsy.com/JudgeOnline/" target="_blank"><img src="${contextPath}/images/remote_oj/HYSBZ_icon.png" />HYSBZ</a></span>
-                <span><a href="http://uva.onlinejudge.org/" target="_blank"><img src="${contextPath}/images/remote_oj/UVA_favicon.ico" />UVA</a></span>
-                <span><a href="http://codeforces.com/" target="_blank"><img src="${contextPath}/images/remote_oj/CodeForces_favicon.png" />CodeForces</a></span>
-                <span><a href="http://www.z-trening.com/" target="_blank"><img src="${contextPath}/images/remote_oj/icon-icpc-small.gif" />Z-Trening</a></span>
-                <span><a href="http://judge.u-aizu.ac.jp/" target="_blank"><img src="${contextPath}/images/remote_oj/Aizu_favicon.ico" />Aizu</a></span>
-                <span><a href="http://lightoj.com/" target="_blank"><img src="${contextPath}/images/remote_oj/icon-icpc-small.gif" />LightOJ</a></span>
-                <span><a href="http://acm.uestc.edu.cn/" target="_blank"><img src="${contextPath}/images/remote_oj/UESTC_favicon.png" />UESTC</a></span>
-                <span><a href="http://cdn.ac.nbutoj.com/" target="_blank"><img src="${contextPath}/images/remote_oj/NBUT_icon.jpg" />NBUT</a></span>
-                <span><a href="http://acm.fzu.edu.cn/" target="_blank"><img src="${contextPath}/images/remote_oj/FZU_favicon.gif" />FZU</a></span>
-                <span><a href="http://acm.csu.edu.cn/OnlineJudge/" target="_blank"><img src="${contextPath}/images/remote_oj/CSU_favicon.ico" />CSU</a></span>
-                <span><a href="http://cstest.scu.edu.cn/" target="_blank"><img src="${contextPath}/images/remote_oj/SCU_favicon.ico" />SCU</a></span>
-                <span><a href="http://acdream.info/" target="_blank"><img src="${contextPath}/images/remote_oj/ACdream_favicon.ico" />ACdream</a></span>
+            <%
+            for(judge.remote.RemoteOjInfo oj:judge.action.BaseAction.OJList){
+                %>
+                <span><a href="<%=oj.mainHost.toURI()%>" target="_blank"><img src="${contextPath}/<%=oj.faviconUrl%>" /><%=oj.literal%></a></span>
+                <%
+            }
+            %>
+
             </div>
             <div style="line-height:20px;padding-top:5px;clear:both;">
                 <p>What's new:</p>

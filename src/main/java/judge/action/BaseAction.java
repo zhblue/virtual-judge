@@ -11,6 +11,7 @@ import judge.remote.RemoteOjInfo;
 import judge.remote.provider.acdream.ACdreamInfo;
 import judge.remote.provider.aizu.AizuInfo;
 import judge.remote.provider.codeforces.CodeForcesInfo;
+import judge.remote.provider.codeforcesgym.CodeForcesGymInfo;
 import judge.remote.provider.csu.CSUInfo;
 import judge.remote.provider.fzu.FZUInfo;
 import judge.remote.provider.hdu.HDUInfo;
@@ -65,6 +66,7 @@ public class BaseAction extends ActionSupport implements ParameterAware {
         OJList.add(HYSBZInfo.INFO);
         OJList.add(UVAInfo.INFO);
         OJList.add(CodeForcesInfo.INFO);
+        OJList.add(CodeForcesGymInfo.INFO);
         OJList.add(ZTreningInfo.INFO);
         OJList.add(AizuInfo.INFO);
         OJList.add(LightOJInfo.INFO);

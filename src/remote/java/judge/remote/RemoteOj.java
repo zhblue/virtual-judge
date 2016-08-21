@@ -5,6 +5,7 @@ public enum RemoteOj {
 
     ACdream, //
     Aizu, //
+    CFGym,//
     CodeForces, //
     CSU, //
     FZU, //

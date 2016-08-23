@@ -1,7 +1,8 @@
 package judge.remote.provider.codeforces;
 
 import judge.remote.RemoteOjInfo;
-import judge.remote.shared.CFStyleSubmitter;
+import judge.remote.shared.codeforces.CFStyleSubmitter;
+
 import org.springframework.stereotype.Component;
 
 

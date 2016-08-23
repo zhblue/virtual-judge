@@ -1,4 +1,4 @@
-package judge.remote.shared;
+package judge.remote.shared.codeforces;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,8 +14,7 @@ import judge.httpclient.DedicatedHttpClient;
 import judge.httpclient.SimpleHttpResponse;
 import judge.httpclient.SimpleNameValueEntityFactory;
 import judge.remote.account.RemoteAccount;
-import judge.remote.provider.codeforces.CodeForcesTokenUtil;
-import judge.remote.provider.codeforces.CodeForcesTokenUtil.CodeForcesToken;
+import judge.remote.shared.codeforces.CodeForcesTokenUtil.CodeForcesToken;
 import judge.remote.submitter.CanonicalSubmitter;
 import judge.remote.submitter.SubmissionInfo;
 

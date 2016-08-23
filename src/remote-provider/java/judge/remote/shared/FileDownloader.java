@@ -1,4 +1,4 @@
-package judge.remote.provider.codeforcesgym;
+package judge.remote.shared;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -12,7 +12,7 @@ import java.net.URL;
  * modified from
  * http://blog.csdn.net/xb12369/article/details/40543649s
  */
-public class CodeForcesGymFileDownloader {
+public class FileDownloader {
     /** 
      * 从网络Url中下载文件 
      * @param urlStr 

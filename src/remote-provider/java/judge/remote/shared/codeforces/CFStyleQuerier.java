@@ -1,4 +1,4 @@
-package judge.remote.shared;
+package judge.remote.shared.codeforces;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,9 +12,8 @@ import org.springframework.stereotype.Component;
 import judge.httpclient.DedicatedHttpClient;
 import judge.httpclient.SimpleNameValueEntityFactory;
 import judge.remote.account.RemoteAccount;
-import judge.remote.provider.codeforces.CodeForcesTokenUtil;
-import judge.remote.provider.codeforces.CodeForcesTokenUtil.CodeForcesToken;
 import judge.remote.querier.AuthenticatedQuerier;
+import judge.remote.shared.codeforces.CodeForcesTokenUtil.CodeForcesToken;
 import judge.remote.status.RemoteStatusType;
 import judge.remote.status.SubmissionRemoteStatus;
 import judge.remote.status.SubstringNormalizer;

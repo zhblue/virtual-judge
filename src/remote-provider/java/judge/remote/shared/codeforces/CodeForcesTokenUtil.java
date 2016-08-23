@@ -1,4 +1,4 @@
-package judge.remote.provider.codeforces;
+package judge.remote.shared.codeforces;
 
 import judge.httpclient.DedicatedHttpClient;
 import judge.tool.Tools;

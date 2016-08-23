@@ -3,7 +3,6 @@ package judge.remote.provider.codeforcesgym;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.http.HttpHost;
 import org.springframework.stereotype.Component;
@@ -14,11 +13,11 @@ import judge.httpclient.DedicatedHttpClient;
 import judge.httpclient.HttpStatusValidator;
 import judge.remote.RemoteOjInfo;
 import judge.remote.crawler.RawProblemInfo;
-import judge.remote.crawler.SimpleCrawler;
-import judge.tool.Tools;
+import judge.remote.shared.FileDownloader;
+import judge.remote.shared.codeforces.CFStyleCrawler;
 
 @Component
-public class CodeForcesGymCrawler extends SimpleCrawler {
+public class CodeForcesGymCrawler extends CFStyleCrawler {
 
 	@Override
 	public RemoteOjInfo getOjInfo() {
@@ -41,25 +40,13 @@ public class CodeForcesGymCrawler extends SimpleCrawler {
 	@Override
 	protected void populateProblemInfo(RawProblemInfo info, String problemId, String html) throws Exception {
 
-        String problemNum = problemId.replaceAll("^\\d*", "");
+        
 		try {
 		    //try to craw html description as same as Codeforeces
-		    info.title = Tools.regFind(html, "<div class=\"title\">\\s*" + problemNum + "\\. ([\\s\\S]*?)</div>").trim();
-	        Double timeLimit = 1000 * Double.parseDouble(Tools.regFind(html, "</div>([\\d\\.]+) seconds?\\s*</div>"));
-	        info.timeLimit = timeLimit.intValue();
-	        info.memoryLimit = 1024 * Integer.parseInt(Tools.regFind(html, "</div>(\\d+) megabytes\\s*</div>"));
-	        info.description = Tools.regFind(html, "standard output\\s*</div></div><div>([\\s\\S]*?)</div><div class=\"input-specification");
-	        if (StringUtils.isEmpty(info.description)) {
-	            info.description = "<div>" + Tools.regFind(html, "(<div class=\"input-file\">[\\s\\S]*?)</div><div class=\"input-specification");
-	        }
-	        info.input = Tools.regFind(html, "<div class=\"section-title\">\\s*Input\\s*</div>([\\s\\S]*?)</div><div class=\"output-specification\">");
-	        info.output = Tools.regFind(html, "<div class=\"section-title\">\\s*Output\\s*</div>([\\s\\S]*?)</div><div class=\"sample-tests\">");
-	        info.sampleInput = "<style type=\"text/css\">.input, .output {border: 1px solid #888888;} .output {margin-bottom:1em;position:relative;top:-1px;} .output pre,.input pre {background-color:#EFEFEF;line-height:1.25em;margin:0;padding:0.25em;} .title {background-color:#FFFFFF;border-bottom: 1px solid #888888;font-family:arial;font-weight:bold;padding:0.25em;}</style>" + Tools.regFind(html, "<div class=\"sample-test\">([\\s\\S]*?)</div>\\s*</div>\\s*</div>");
-	        info.hint = Tools.regFind(html, "<div class=\"section-title\">\\s*Note\\s*</div>([\\s\\S]*?)</div></div></div></div>");
-	        info.source = Tools.regFind(html, "(<a[^<>]+/contest/\\d+\">.+?</a>)");
-	        
+	        super.populateProblemInfo(info, problemId, html);
 		} catch (Exception e) { 
 		    //Not have html description,try to craw from contest problem list and download PDF
+		    final String problemNum = problemId.replaceAll("^\\d*", "");
 			final String contestNum = problemId.replaceAll("\\D.*", "");
 			final HttpHost host = new HttpHost("codeforces.com");
 			final DedicatedHttpClient client = dedicatedHttpClientFactory.build(host);
@@ -98,7 +85,7 @@ public class CodeForcesGymCrawler extends SimpleCrawler {
 			try{
 			    String path = this.getClass().getResource("/").getPath().
 			            replace("WEB-INF/classes/", "problem" +  matcher.group(0).substring(0,matcher.group(0).lastIndexOf("/")));
-	            CodeForcesGymFileDownloader.downLoadFromUrl(host.toURI() + matcher.group(0),path);
+	            FileDownloader.downLoadFromUrl(host.toURI() + matcher.group(0),path);
 	            pdfURI =  matcher.group(0).substring(1);
 			} catch (Exception e1) {
 			    pdfURI = host.toURI() + matcher.group(0);

@@ -36,6 +36,7 @@ public class HDULanguageFinder implements LanguageFinder {
         languageList.put("3", "C");
         languageList.put("4", "Pascal");
         languageList.put("5", "Java");
+        languageList.put("6", "C#");
         return languageList;
     }
 

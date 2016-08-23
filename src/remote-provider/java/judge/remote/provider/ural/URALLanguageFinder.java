@@ -31,8 +31,8 @@ public class URALLanguageFinder implements LanguageFinder {
     public LinkedHashMap<String, String> getDefaultLanguages() {
         LinkedHashMap<String, String> languageList = new LinkedHashMap<>();
         languageList.put("31", "FreePascal 2.6");
-        languageList.put("9", "Visual C 2010");
-        languageList.put("10", "Visual C++ 2010");
+        languageList.put("37", "Visual C 2013");
+        languageList.put("38", "Visual C++ 2013");
         languageList.put("25", "GCC 4.9");
         languageList.put("26", "G++ 4.9");
         languageList.put("27", "GCC 4.9 C11");
@@ -47,6 +47,7 @@ public class URALLanguageFinder implements LanguageFinder {
         languageList.put("18", "Ruby 1.9");
         languageList.put("19", "Haskell 7.6");
         languageList.put("33", "Scala 2.11");
+        languageList.put("43", "Rust 1.9");
         return languageList;
     }
 

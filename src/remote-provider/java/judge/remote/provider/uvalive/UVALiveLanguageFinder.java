@@ -30,11 +30,12 @@ public class UVALiveLanguageFinder implements LanguageFinder {
     @Override
     public LinkedHashMap<String, String> getDefaultLanguages() {
         LinkedHashMap<String, String> languageList = new LinkedHashMap<String, String>();
-        languageList.put("1", "ANSI C 4.8.2");
-        languageList.put("2", "JAVA 1.6.0");
-        languageList.put("3", "C++ 4.8.2");
-        languageList.put("4", "PASCAL 2.4.0");
-        languageList.put("5", "C++11 4.8.2");
+        languageList.put("1", "ANSI C 5.3.0 - GNU C Compiler");
+        languageList.put("2", "JAVA 1.8.0 - OpenJDK Java");
+        languageList.put("3", "C++ 5.3.0 - GNU C++");
+        languageList.put("4", "PASCAL 3.0.0 - Free Pascal Compiler");
+        languageList.put("5", "C++11 5.3.0 - GNU C++ Compiler");
+        languageList.put("6", "PYTH3 3.5.1 - Python 3");
         return languageList;
     }
 

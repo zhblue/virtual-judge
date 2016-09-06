@@ -80,9 +80,9 @@ public class UVALiveCrawler extends SyncCrawler {
         
         try{
             String path = this.getClass().getResource("/").getPath().
-                    replace("WEB-INF/classes/", "problem/UVALivePDF/" +  Integer.parseInt(problemId1) / 100);
+                    replace("WEB-INF/classes/", "problem/pdf/uvalive/" +  Integer.parseInt(problemId1) / 100);
             FileDownloader.downLoadFromUrl(pdfURL,path);
-            pdfURL =  "UVALivePDF/" +  Integer.parseInt(problemId1) / 100 + "/" + problemId1 + ".pdf";
+            pdfURL =  "pdf/uvalive/" +  Integer.parseInt(problemId1) / 100 + "/" + problemId1 + ".pdf";
         } catch (Exception e1) {
             e1.printStackTrace();
         }

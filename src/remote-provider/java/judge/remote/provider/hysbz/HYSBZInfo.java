@@ -16,5 +16,6 @@ public class HYSBZInfo {
     static {
         INFO.faviconUrl = "images/remote_oj/HYSBZ_icon.png";
         INFO._64IntIoFormat = "%lld & %llu";
+        INFO.urlForIndexDisplay = "http://www.lydsy.com/JudgeOnline/";
     }
 }

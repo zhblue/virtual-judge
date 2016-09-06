@@ -58,7 +58,7 @@
             <%
             for(judge.remote.RemoteOjInfo oj:judge.action.BaseAction.OJList){
                 %>
-                <span><a href="<%=oj.mainHost.toURI()%>" target="_blank"><img src="${contextPath}/<%=oj.faviconUrl%>" /><%=oj.literal%></a></span>
+                <span><a href="<%=oj.urlForIndexDisplay%>" target="_blank"><img src="${contextPath}/<%=oj.faviconUrl%>" /><%=oj.literal%></a></span>
                 <%
             }
             %>

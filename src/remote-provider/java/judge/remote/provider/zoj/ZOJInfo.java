@@ -16,6 +16,7 @@ public class ZOJInfo {
     static {
         INFO.faviconUrl = "images/remote_oj/ZOJ_favicon.ico";
         INFO._64IntIoFormat = "%lld & %llu";
+        INFO.urlForIndexDisplay = "http://acm.zju.edu.cn/onlinejudge/";
     }
 
 }

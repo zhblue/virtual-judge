@@ -26,6 +26,8 @@ public class RemoteOjInfo {
     public String faviconUrl = "images/remote_oj/icon-icpc-small.gif";
 
     public String _64IntIoFormat;
+    
+    public String urlForIndexDisplay;
 
     //////////////////////////////////////////////////////////////////////////////
 
@@ -33,6 +35,7 @@ public class RemoteOjInfo {
         this.remoteOj = remoteOj;
         this.literal = literal;
         this.mainHost = mainHost;
+        this.urlForIndexDisplay = mainHost.toURI();
     }
 
     @Override

@@ -16,5 +16,6 @@ public class CodeForcesGymInfo {
     static {
         INFO.faviconUrl = "images/remote_oj/CodeForces_favicon.png";
         INFO._64IntIoFormat = "%I64d & %I64u";
+        INFO.urlForIndexDisplay = "http://codeforces.com/gyms";
     }
 }

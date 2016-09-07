@@ -28,6 +28,7 @@ public abstract class CFStyleLanguageFinder implements LanguageFinder {
         languageList.put("43", "GNU GCC C11 5.1.0");
         languageList.put("1", "GNU G++ 5.1.0");
         languageList.put("42", "GNU G++11 5.1.0");
+        languageList.put("50", "GNU G++14 6.2.0");
         languageList.put("2", "Microsoft Visual C++ 2010");
         languageList.put("9", "C# Mono 3.12.1.0");
         languageList.put("29", "MS C# .NET 4.0.30319");

@@ -1144,6 +1144,11 @@ $(function () {
             }
         }
         problem.desc_index = desc_index;
+        if($('#useMathJax').prop('checked')){
+            setTimeout(function(){
+                MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
+            },100);
+        }
     }
 
 

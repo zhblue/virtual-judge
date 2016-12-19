@@ -59,7 +59,8 @@
 					</font>
 				</p>
 			</s:if>
-			
+
+			<div><input type="checkbox" id="useMathJax" onchange="mathJaxFunc()"> use MathJax to parse formulas</div>
 			<div class="hiddable" id="vj_description"><p class="pst">Description</p><div class="textBG"></div></div>
 			<div class="hiddable" id="vj_input"><p class="pst">Input</p><div class="textBG"></div></div>
 			<div class="hiddable" id="vj_output"><p class="pst">Output</p><div class="textBG"></div></div>

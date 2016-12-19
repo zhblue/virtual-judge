@@ -5124,6 +5124,11 @@ $(function () {
             }
         }
         problem.desc_index = desc_index;
+        if($('#useMathJax').prop('checked')){
+            setTimeout(function(){
+                MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
+            },100);
+        }
     }
 
 
@@ -6372,3 +6377,11 @@ $(function() {
 	sh_highlightDocument(basePath + '/shjsx/', '.min.js');
 	_showDiscuss();
 });
+
+function mathJaxFunc(){
+    if($('#useMathJax').prop('checked')){
+        $('head').append('<script async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>');
+    } else {
+        location.reload();
+    }
+}

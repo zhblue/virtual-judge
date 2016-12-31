@@ -29,12 +29,7 @@
         <filter-name>struts2</filter-name>
         <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
     </filter>
-    <filter>
-	    <display-name>PDFFileRedirect</display-name>
-	    <filter-name>PDFFileRedirect</filter-name>
-	    <filter-class>judge.tool.PDFFileRedirect</filter-class>
-    </filter>
-	
+
     <listener>
         <listener-class>judge.tool.StartUpListener</listener-class>
     </listener>
@@ -61,11 +56,6 @@
         <filter-name>struts2</filter-name>
         <url-pattern>*.action</url-pattern>
     </filter-mapping>
-    	<filter-mapping>
-	    <filter-name>PDFFileRedirect</filter-name>
-	    <url-pattern>*.pdf</url-pattern>
-    </filter-mapping>
-    
     <session-config>
         <session-timeout>60</session-timeout>
     </session-config>

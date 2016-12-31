@@ -72,6 +72,9 @@ public class HtmlHandleUtil {
             try{
                 String src = element.absUrl("src")
                         .replace("http://acm.hdu.edu.cn/../data/", "http://acm.hdu.edu.cn/data/");
+                if(!src.startsWith("http://") && !src.startsWith("https://")){
+                    continue;
+                }
                 String folder = src.replace("http://", "").replace("https://", "")
                         .replace("www.", "").replace("acm.", "")
                         .replace(".com", "").replace(".cn", "").replace(".edu", "").replace(".org", "")

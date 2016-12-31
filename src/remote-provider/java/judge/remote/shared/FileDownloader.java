@@ -2,6 +2,7 @@ package judge.remote.shared;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.SocketTimeoutException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -22,13 +23,14 @@ public class FileDownloader {
     private static final long NOT_REDOWNLOAD_IN = 1000L * 60 * 60 * 1;//an hour
     private static  SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss 'GMT'", Locale.ENGLISH);
     private final static Logger log = LoggerFactory.getLogger(FileDownloader.class);
+    private static final int TRY_TIMES = 5;
 
     static {
         dateFormat.setTimeZone(new SimpleTimeZone(0, "GMT"));
     }
 
     public static void downLoadFromUrl(String urlStr,String savePath,String fileName) throws Exception{
-        log.debug(urlStr);
+        log.info(urlStr);
         FileOutputStream fos = null;
         try {
             Connection connection = Jsoup.connect(urlStr)
@@ -43,30 +45,47 @@ public class FileDownloader {
             File file = new File(saveDir+File.separator+fileName);
             if(file.exists()){
                 Date lastModified = new Date(file.lastModified());
-                log.debug("already downloaded at" + lastModified.toString());
+                log.info("already downloaded at " + lastModified.toString());
                 if((new Date()).getTime() - lastModified.getTime() <  NOT_REDOWNLOAD_IN){
-                    log.debug("ignore");
+                    log.info("ignore");
                     return ;
                 }
                 connection.header("If-Modified-Since", dateFormat.format(lastModified));
             }
-
-            Response response = connection.execute();
+            int tryTimesLeft = TRY_TIMES;
+            Response response = null;
+            while(--tryTimesLeft >= 0){
+                try{
+                    response = connection.execute();
+                } catch (HttpStatusException e){
+                    if(e.getStatusCode() == HttpStatus.SC_NOT_MODIFIED){
+                        log.info("Not Modified");
+                        return ;
+                    } else {
+                        throw e;
+                    }
+                } catch (SocketTimeoutException e){
+                    log.error(e.getMessage());
+                    if(tryTimesLeft == 0){
+                        if(file.exists()){
+                            log.info("failed, use the local file");
+                            return ;
+                        } else {
+                            throw e;
+                        }
+                    }
+                }
+            }
             fos = new FileOutputStream(file);
             fos.write(response.bodyAsBytes());
-            log.debug("download success : " + savePath + fileName);
-        } catch (Exception e) {
-            if(e instanceof HttpStatusException && ((HttpStatusException)e).getStatusCode() == HttpStatus.SC_NOT_MODIFIED){
-                log.debug("Not Modified");
-            } else {
-                throw e;
-            }
+            log.info("download success : " + savePath + "/" + fileName);
         } finally {
             if(fos!=null){
                 fos.close();
             }
         }
-    }  
+    }
+
 
     public static void  downLoadFromUrl(String urlStr,String savePath) throws Exception{
         String fileName = urlStr.substring(urlStr.lastIndexOf("/") + 1);

@@ -70,10 +70,12 @@ public class HtmlHandleUtil {
 
         for (Element element : links) {
             try{
-                String src = element.absUrl("src")
-                        .replace("http://acm.hdu.edu.cn/../data/", "http://acm.hdu.edu.cn/data/");
+                String src = element.absUrl("src");
                 if(!src.startsWith("http://") && !src.startsWith("https://")){
                     continue;
+                }
+                while(src.contains("acm.hdu.edu.cn/../")){
+                    src = src.replace("acm.hdu.edu.cn/../", "acm.hdu.edu.cn/");
                 }
                 String folder = src.replace("http://", "").replace("https://", "")
                         .replace("www.", "").replace("acm.", "")

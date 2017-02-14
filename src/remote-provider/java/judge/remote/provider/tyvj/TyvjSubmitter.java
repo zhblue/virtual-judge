@@ -9,12 +9,21 @@ import judge.remote.submitter.CanonicalSubmitter;
 import judge.remote.submitter.SubmissionInfo;
 import judge.tool.Tools;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.http.HttpEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 
 @Component
 public class TyvjSubmitter extends CanonicalSubmitter {
+    private final static Logger log = LoggerFactory.getLogger(TyvjSubmitter.class);
 
     @Override
     public RemoteOjInfo getOjInfo() {
@@ -28,7 +37,18 @@ public class TyvjSubmitter extends CanonicalSubmitter {
 
     @Override
     protected Integer getMaxRunId(SubmissionInfo info, DedicatedHttpClient client, boolean submitted) {
-        return submitted ? Integer.parseInt(info.remoteRunId) : -1;
+        if(info.remoteRunId != null){
+            return Integer.parseInt(info.remoteRunId);
+        }
+        try{
+            Map<String, String> []json = new Gson().fromJson(client.get(
+                    "/Status/GetStatuses?page=0&problemid=" + info.remoteProblemId + "&username=" + info.remoteAccountId).getBody(),
+                    new TypeToken<HashMap<String, String>[]>() {}.getType());
+            return Integer.parseInt(json[0].get("ID"));
+        } catch (Exception e) {
+            ;
+        }
+        return  -1;
     }
 
     @Override
@@ -43,6 +63,10 @@ public class TyvjSubmitter extends CanonicalSubmitter {
                 "language_id", info.remotelanguage
         );
         String html = client.post("/Status/Create", entity).getBody();
+        if("No Online Judger".equals(html)){
+            log.info("No Online Judger");
+            return null;
+        }
         try{
             info.remoteRunId = new Integer(html).toString();
             return null;

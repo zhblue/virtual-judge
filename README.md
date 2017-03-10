@@ -9,7 +9,7 @@ Holding contests using problems from other OJs!!
 
 Comparing to [the original version](https://github.com/chaoshxxu/virtual-judge/tree/9dc0be82ed7e05dc17b7f042a935bf3db8435ce4) of virtual-judge source code, there are the following changes in this version:
 
-- Fix the support for ACdream, Aizu, Codeforces, CSU, NBUT, POJ, SPOJ, URAL and UVA OJs
+- Fix the support for ACdream, Aizu, Codeforces, CSU, NBUT, POJ, SCU, SPOJ, URAL and UVA OJs
 - Add support for CodeforcesGym and Tyvj OJ
 - Add support for MathJax
 - Update language information of code submission
@@ -26,7 +26,7 @@ Comparing to [the original version](https://github.com/chaoshxxu/virtual-judge/t
 ## 修改说明
 
 与 [原版](https://github.com/chaoshxxu/virtual-judge/tree/9dc0be82ed7e05dc17b7f042a935bf3db8435ce4) virtual-judge 源码相比, 该本版有以下修改：
-- 修复对ACdream, Aizu, Codeforces, CSU, NBUT, POJ, SPOJ, URAL 和 UVA 这些OJ的支持
+- 修复对ACdream, Aizu, Codeforces, CSU, NBUT, POJ, SCU, SPOJ, URAL 和 UVA 这些OJ的支持
 - 添加对CodeforcesGym以及Tyvj这些OJ的支持
 - 添加对MathJax的支持（用于显示公式，默认使用互联网上的版本，需要离线请自行下载并更新`script.min.js`中的路径）
 - 更新代码提交时可选的语言

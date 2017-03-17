@@ -239,6 +239,7 @@ $(function () {
                     success : function (res) {
                         if (res == "success") {
                             $("#dialog-form-submit").dialog( "close" );
+                            hash[1] = "";
                             showStatus();
                             $("#reset").trigger("click");
                         } else {

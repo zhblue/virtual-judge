@@ -819,7 +819,7 @@ public class ContestAction extends BaseAction {
         Map session = ActionContext.getContext().getSession();
         User user = OnlineTool.getCurrentUser();
         int userId = user != null ? user.getId() : -1;
-
+        Map parMap=new HashMap();
         StringBuffer hql = new StringBuffer(
                 "select "
                         + " s.id, "  // 0
@@ -847,7 +847,8 @@ public class ContestAction extends BaseAction {
 
         if (un != null && !un.trim().isEmpty()){
             un = un.toLowerCase().trim();
-            hql.append(" and s.username = '" + un + "' ");
+            hql.append(" and s.username = :username ");
+            parMap.put("username", un);
         }
 
         if (!num.equals("-")){
@@ -888,7 +889,7 @@ public class ContestAction extends BaseAction {
 
         dataTablesPage.setRecordsFiltered(9999999L);
 
-        List<Object[]> data = baseService.list(hql.toString(), Integer.parseInt(start), Integer.parseInt(length));
+        List<Object[]> data = baseService.list(hql.toString(),parMap, Integer.parseInt(start), Integer.parseInt(length));
 
         for (Object[] o : data) {
             o[8] = ((Date)o[8]).getTime();

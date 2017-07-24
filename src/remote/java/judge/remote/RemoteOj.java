@@ -24,7 +24,8 @@ public enum RemoteOj {
     URAL, //
     UVA, //
     UVALive, //
+    XTUOJ2, 
     ZOJ, //
-    ZTrening, //
+    ZTrening//
 
 }

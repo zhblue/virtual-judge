@@ -25,10 +25,14 @@ import judge.bean.Problem;
 import judge.bean.ReplayStatus;
 import judge.bean.Submission;
 import judge.bean.User;
+import judge.httpclient.DedicatedHttpClient;
+import judge.httpclient.DedicatedHttpClientFactory;
 import judge.remote.ProblemInfoUpdateManager;
 import judge.remote.QueryStatusManager;
+import judge.remote.RemoteOj;
 import judge.remote.RunningSubmissions;
 import judge.remote.SubmitCodeManager;
+import judge.remote.provider.vjudge.VjudgeInfo;
 import judge.remote.status.RemoteStatusType;
 import judge.tool.ApplicationContainer;
 import judge.tool.OnlineTool;
@@ -63,6 +67,8 @@ public class JudgeService {
     @Autowired
     private ProblemInfoUpdateManager problemInfoUpdateManager;
 
+    @Autowired
+    private DedicatedHttpClientFactory dedicatedHttpClientFactory;
 
     private static final String cellOptions []= {
         "No submisson",                                                                //0        0
@@ -202,6 +208,14 @@ public class JudgeService {
             baseService.addOrModify(submission);
             submitManager.submitCode(submission);
         } else {
+            if(RemoteOj.VJudge.equals(RemoteOj.valueOf(submission.getOriginOJ()))) {
+                try {
+                    DedicatedHttpClient client = dedicatedHttpClientFactory.build(VjudgeInfo.INFO.mainHost);
+                    client.post("/problem/rejudge/" + submission.getRealRunId());
+                } catch (Exception e) {
+                    log.error(e.getMessage(), e);
+                }
+            }
             queryStatusManager.createQuery(submission);
         }
 

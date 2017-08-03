@@ -73,7 +73,7 @@ public class VjudgeLanguageFinder implements LanguageFinder {
         for(String oj : ojs.keySet()) {
             LinkedHashMap<String, String> languageList = new LinkedHashMap<String, String>(
                     (Map<String, String>)((Map<String, Object>)ojs.get(oj)).get("languages"));
-            newOjLanguageMap.put(oj, languageList);
+            newOjLanguageMap.put(oj.toUpperCase(), languageList);
         }
         if(!newOjLanguageMap.isEmpty()) {
             ojLanguageMap = newOjLanguageMap;
@@ -104,7 +104,7 @@ public class VjudgeLanguageFinder implements LanguageFinder {
         }
         
         String oj = remoteProblemId.substring(0, remoteProblemId.indexOf("-")).trim();
-        handler.handle(ojLanguageMap.get(oj));
+        handler.handle(ojLanguageMap.get(oj.toUpperCase()));
     }
 
     @Override

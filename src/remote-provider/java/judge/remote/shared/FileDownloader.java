@@ -27,6 +27,7 @@ public class FileDownloader {
 
     static {
         dateFormat.setTimeZone(new SimpleTimeZone(0, "GMT"));
+        System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
     }
 
     public static void downLoadFromUrl(String urlStr,String savePath,String fileName) throws Exception{

@@ -18,7 +18,7 @@ public class SPOJCrawler extends SimpleCrawler {
 
     @Override
     protected String getProblemUrl(String problemId) {
-        return getHost().toURI() + "/problems/" + problemId;
+        return getHost().toURI() + "/problems/" + problemId + "/";
     }
     
     @Override
@@ -33,7 +33,7 @@ public class SPOJCrawler extends SimpleCrawler {
         info.title = Tools.regFind(html, "<h2 id=\"problem-name\" class=\"text-center\">[\\s\\S]*? - ([\\s\\S]*?)</h2>").trim();
         info.timeLimit = (int) (1000 * Double.parseDouble(Tools.regFind(html, "Time limit:</td><td>([\\s\\S]*?)s")));
         info.memoryLimit = (int) (1024 * Double.parseDouble(Tools.regFind(html, ">Memory limit:</td><td>([\\s\\S]*?)MB")));
-        info.description = (Tools.regFind(html, "<div id=\"problem-body\">([\\s\\S]*?)</div><div class=\"text-center\"><a href=\"http://www.spoj.com/submit/"))
+        info.description = (Tools.regFind(html, "<div id=\"problem-body\">([\\s\\S]*?)</div><div class=\"text-center\"><a href=\"https://www.spoj.com/submit/"))
                 .replace("<b>Input:</b> ", "<b>Input:</b>\n").replace("<b>Output:</b>", "\n\n<b>Output:</b>").replace("<b>Output:</b> ", "<b>Output:</b>\n");
         info.source = (Tools.regFind(html, "<tr><td>Resource:</td><td>([\\s\\S]*?)</td></tr>"));
     }

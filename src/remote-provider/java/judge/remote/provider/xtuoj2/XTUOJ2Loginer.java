@@ -1,4 +1,4 @@
-package judge.remote.provider.spoj;
+package judge.remote.provider.xtuoj2;
 
 import judge.httpclient.DedicatedHttpClient;
 import judge.httpclient.HttpStatusValidator;
@@ -11,26 +11,26 @@ import org.apache.http.HttpEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SPOJLoginer extends RetentiveLoginer {
+public class XTUOJ2Loginer extends RetentiveLoginer {
 
     @Override
     public RemoteOjInfo getOjInfo() {
-        return SPOJInfo.INFO;
+        return XTUOJ2Info.INFO;
     }
 
     @Override
     protected void loginEnforce(RemoteAccount account, DedicatedHttpClient client) {
-        if (client.get("/").getBody().contains("<a href=\"/logout\">")) {
+        if (client.get("/OnlineJudge2/index.php/User/menu/redirect/:OnlineJudge2:index.php").getBody().contains("logout")) {
             return;
         }
 
         HttpEntity entity = SimpleNameValueEntityFactory.create( //
-                "login_user", account.getAccountId(), //
-                "password", account.getPassword(), //
-                "autologin", "1", //
-                "submit", "Log In", //
-                "ISO-8859-1");
-        client.post("/?a=login", entity, HttpStatusValidator.SC_MOVED_TEMPORARILY);
+                "tab_user_id", account.getAccountId(), //
+                "redirect", "/OnlineJudge2/index.php", //
+                "tab_password", account.getPassword(), //
+                "Submit", "Login", //
+                "think_html_token", "");
+        client.post("/OnlineJudge2/index.php/User/login", entity, HttpStatusValidator.SC_MOVED_TEMPORARILY);
     }
 
 }

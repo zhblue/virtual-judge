@@ -25,12 +25,14 @@ import judge.remote.provider.sgu.SGUInfo;
 import judge.remote.provider.spoj.SPOJInfo;
 import judge.remote.provider.tyvj.TyvjInfo;
 import judge.remote.provider.uestc.UESTCInfo;
-import judge.remote.provider.uestc_old.UESTCOldInfo;
+//import judge.remote.provider.uestc_old.UESTCOldInfo;
 import judge.remote.provider.ural.URALInfo;
 import judge.remote.provider.uva.UVAInfo;
 import judge.remote.provider.uvalive.UVALiveInfo;
+import judge.remote.provider.vjudge.VjudgeInfo;
+import judge.remote.provider.xtuoj2.XTUOJ2Info;
 import judge.remote.provider.zoj.ZOJInfo;
-import judge.remote.provider.ztrening.ZTreningInfo;
+//import judge.remote.provider.ztrening.ZTreningInfo;
 import judge.service.IBaseService;
 import judge.service.JudgeService;
 
@@ -68,10 +70,10 @@ public class BaseAction extends ActionSupport implements ParameterAware {
         OJList.add(UVAInfo.INFO);
         OJList.add(CodeForcesInfo.INFO);
         OJList.add(CodeForcesGymInfo.INFO);
-        OJList.add(ZTreningInfo.INFO);
+//        OJList.add(ZTreningInfo.INFO);
         OJList.add(AizuInfo.INFO);
         OJList.add(LightOJInfo.INFO);
-        OJList.add(UESTCOldInfo.INFO);
+//        OJList.add(UESTCOldInfo.INFO);
         OJList.add(UESTCInfo.INFO);
         OJList.add(NBUTInfo.INFO);
         OJList.add(FZUInfo.INFO);
@@ -79,6 +81,8 @@ public class BaseAction extends ActionSupport implements ParameterAware {
         OJList.add(SCUInfo.INFO);
         OJList.add(ACdreamInfo.INFO);
         OJList.add(TyvjInfo.INFO);
+        OJList.add(XTUOJ2Info.INFO);
+        OJList.add(VjudgeInfo.INFO);
         Collections.sort(OJList, new Comparator<RemoteOjInfo>() {
             @Override
             public int compare(RemoteOjInfo oj1, RemoteOjInfo oj2) {

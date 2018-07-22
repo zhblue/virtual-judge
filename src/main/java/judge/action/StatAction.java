@@ -14,6 +14,7 @@ import judge.bean.User;
 import judge.tool.OnlineTool;
 import judge.tool.PhysicalAddressTool;
 import judge.tool.SessionContext;
+import judge.tool.UserAgentUtil;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -77,8 +78,8 @@ public class StatAction extends ActionSupport {
             long fl = (new Date().getTime() - session.getLastAccessedTime()) / 1000;
             row.add((fl / 60 > 0 ? fl / 60 + "分" : "") + (fl % 60 + "秒"));
 
-            row.add(findBrowser(ua));
-            row.add(findOS(ua));
+            row.add(UserAgentUtil.findBrowser(ua));
+            row.add(UserAgentUtil.findOS(ua));
             row.add(session.getAttribute("referer"));
             
             dataList.add(row);
@@ -97,44 +98,6 @@ public class StatAction extends ActionSupport {
         userAgent = (String) session.getAttribute("user-agent");
         return SUCCESS;
     }
-
-
-    public String findBrowser(String ref) {
-        if (ref == null)
-            return "Unknown";
-        ref = ref.toUpperCase();
-        if (ref.contains("MSIE")) {
-            return "IE";
-        } else if (ref.contains("FIREFOX")) {
-            return "Firefox";
-        } else if (ref.contains("CHROME")) {
-            return "Chrome";
-        } else if (ref.contains("NETSCAPE")) {
-            return "NetScape";
-        } else if (ref.contains("OPERA")) {
-            return "Opera";
-        } else {
-            return "Unknown";
-        }
-    }
-
-    public String findOS(String ref) {
-        if (ref == null)
-            return "Unknown";
-        ref = ref.toUpperCase();
-        if (ref.contains("WINDOWS")) {
-            return "Windows";
-        } else if (ref.contains("LINUX")) {
-            return "Linux";
-        } else if (ref.contains("MAC")) {
-            return "Mac";
-        } else if (ref.contains("UNIX")) {
-            return "Unix";
-        } else {
-            return "Unknown";
-        }
-    }
-
 
     public List getDataList() {
         return dataList;

@@ -1,4 +1,4 @@
-package judge.remote.provider.lightoj;
+package judge.remote.provider.xtuoj2;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -10,11 +10,11 @@ import judge.tool.Handler;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LightOJLanguageFinder implements LanguageFinder {
+public class XTUOJ2LanguageFinder implements LanguageFinder {
 
     @Override
     public RemoteOjInfo getOjInfo() {
-        return LightOJInfo.INFO;
+        return XTUOJ2Info.INFO;
     }
 
     @Override
@@ -30,10 +30,12 @@ public class LightOJLanguageFinder implements LanguageFinder {
     @Override
     public LinkedHashMap<String, String> getDefaultLanguages() {
         LinkedHashMap<String, String> languageList = new LinkedHashMap<String, String>();
-        languageList.put("C", "C");
-        languageList.put("C++", "C++");
-        languageList.put("JAVA", "JAVA");
-        languageList.put("PASCAL", "PASCAL");
+        languageList.put("G++", "minGW C++");
+        languageList.put("C++11", "minGW C++11");
+        languageList.put("JAVA", "Java");
+        languageList.put("GCC", "minGW C");
+        languageList.put("C++", "Microsoft C++");
+        languageList.put("C", "Microsoft C");
         return languageList;
     }
 
